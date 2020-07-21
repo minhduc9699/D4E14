@@ -1,3 +1,5 @@
+import pyexcel
+
 quizzes = [
   {
     'question': 'con nhện có mấy chân?',
@@ -30,4 +32,7 @@ for quiz in quizzes:
     print('sai mất r :((')
 
 correct_percent = right_choices_count / len(quizzes) * 100
-print(f'{correct_percent}%')
+data = [
+  ['Đức', f'{correct_percent}%'],
+]
+pyexcel.save_as(array=data, dest_file_name='quiz.xlsx')
