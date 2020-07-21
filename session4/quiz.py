@@ -8,8 +8,15 @@ quizzes = [
     'question': 'con chó có mấy chân?',
     'choices': [3, 4, 5, 6],
     'right_choice': 1
+  }, 
+  {
+    'question': 'con chó có mấy chân?',
+    'choices': [3, 4, 5, 6],
+    'right_choice': 1
   }
 ]
+
+right_choices_count = 0
 
 for quiz in quizzes:
   print(quiz['question'])
@@ -18,6 +25,9 @@ for quiz in quizzes:
 
   your_choice = int(input('your choice: ')) - 1
   if your_choice == quiz['right_choice']:
-    print('hurayy!')
+    right_choices_count = right_choices_count + 1
   else:
     print('sai mất r :((')
+
+correct_percent = right_choices_count / len(quizzes) * 100
+print(f'{correct_percent}%')
