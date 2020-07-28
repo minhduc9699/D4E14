@@ -7,15 +7,14 @@ quiz_database = mongo_connection.get_database('quiz')
 
 result_collection = quiz_database.get_collection('result')
 
+quizzes_collection = quiz_database.get_collection('quizzes')
 
-quizzes = pyexcel.iget_records(file_name='quizzes.xlsx')
 
+quizzes = quizzes_collection.find()
 right_choices_count = 0
 
 quizzes = list(quizzes)
 for quiz in quizzes:
-  quiz['choices'] = quiz['choices'].split(',')
-
   print(quiz['question'])
   for i in range(len(quiz['choices'])):
     print(f' {i+1}. {quiz["choices"][i]} ')
@@ -29,7 +28,7 @@ for quiz in quizzes:
 correct_percent = right_choices_count / len(quizzes) * 100
 
 data = {
-  'name': 'Đức',
+  'name': 'không phải Đức',
   'correct_percent': correct_percent
 }
 
