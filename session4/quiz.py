@@ -1,4 +1,12 @@
 import pyexcel
+from pymongo import MongoClient
+
+mongo_connection = MongoClient()
+
+quiz_database = mongo_connection.get_database('quiz')
+
+result_collection = quiz_database.get_collection('result')
+
 
 quizzes = pyexcel.iget_records(file_name='quizzes.xlsx')
 
@@ -19,7 +27,10 @@ for quiz in quizzes:
     print('sai mất r :((')
 
 correct_percent = right_choices_count / len(quizzes) * 100
-data = [
-  ['Đức', f'{correct_percent}%'],
-]
-pyexcel.save_as(array=data, dest_file_name='quiz.xlsx')
+
+data = {
+  'name': 'Đức',
+  'correct_percent': correct_percent
+}
+
+result_collection.insert_one(data)
